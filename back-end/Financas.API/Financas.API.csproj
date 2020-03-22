@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Financas.Aplicacao\Financas.Aplicacao.csproj" />
+    <ProjectReference Include="..\Financas.Infra.Repositorio\Financas.Infra.Repositorio.csproj" />
+  </ItemGroup>
+
+</Project>
