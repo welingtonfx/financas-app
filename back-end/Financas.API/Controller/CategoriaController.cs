@@ -1,4 +1,6 @@
-﻿using Financas.Interface.Repositorio;
+﻿using Financas.Dominio.Handler.Handlers;
+using Financas.Interface.Repositorio;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -12,15 +14,20 @@ namespace Financas.API.Controller
     {
         private readonly ICategoriaRepositorio categoriaRepositorio;
 
-        public CategoriaController(ICategoriaRepositorio categoriaRepositorio)
+        private readonly IMediator _mediator;
+
+        public CategoriaController(IMediator mediator)
         {
-            this.categoriaRepositorio = categoriaRepositorio;
+            this._mediator = mediator;
         }
 
         [HttpGet("obtercategorias")]
         public async Task<IActionResult> ObterTransacoes()
         {
-            var resultado = await categoriaRepositorio.ObterCategorias();
+            var query = new ObterCategoriasQuery();
+            var resultado = await _mediator.Send(query);
+
+            //var resultado = await categoriaRepositorio.ObterCategorias();
 
             return Ok(resultado);
         }

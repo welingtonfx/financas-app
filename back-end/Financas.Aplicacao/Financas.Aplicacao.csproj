@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Financas.Dominio\Financas.Dominio.csproj" />
     <ProjectReference Include="..\Financas.Infra.Repositorio\Financas.Infra.Repositorio.csproj" />
     <ProjectReference Include="..\Financas.Infra\Financas.Infra.csproj" />

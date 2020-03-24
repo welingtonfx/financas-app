@@ -1,5 +1,6 @@
 using Financas.Infra.Repositorio.Repositorio;
 using Financas.Interface.Repositorio;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -55,6 +56,9 @@ namespace Financas.API
             // Injeções
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddTransient<ICategoriaRepositorio, CategoriaRepositorio>();
+            //services.AddMediatR(typeof(Startup));
+
+            services.AddMediatR(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

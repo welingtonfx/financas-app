@@ -11,17 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dominio", "Dominio", "{0298
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{785F2BE4-5846-40CE-B158-5E9CEB52AEA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financas.API", "Financas.API\Financas.API.csproj", "{55137954-D1F7-4434-A892-E15F93DF6787}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financas.API", "Financas.API\Financas.API.csproj", "{55137954-D1F7-4434-A892-E15F93DF6787}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financas.Aplicacao", "Financas.Aplicacao\Financas.Aplicacao.csproj", "{EC1D5CE3-B632-430F-84DF-E338F9D325D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financas.Aplicacao", "Financas.Aplicacao\Financas.Aplicacao.csproj", "{EC1D5CE3-B632-430F-84DF-E338F9D325D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financas.Dominio", "Financas.Dominio\Financas.Dominio.csproj", "{11650554-ED12-4A8D-9460-C918211B90A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financas.Dominio", "Financas.Dominio\Financas.Dominio.csproj", "{11650554-ED12-4A8D-9460-C918211B90A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financas.Interface", "Financas.Interface\Financas.Interface.csproj", "{C22D8D73-2DAB-4A03-8518-E3484FC83993}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financas.Interface", "Financas.Interface\Financas.Interface.csproj", "{C22D8D73-2DAB-4A03-8518-E3484FC83993}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financas.Infra", "Financas.Infra\Financas.Infra.csproj", "{1D93A49C-671E-42BB-B6C9-7BBF013B0337}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financas.Infra", "Financas.Infra\Financas.Infra.csproj", "{1D93A49C-671E-42BB-B6C9-7BBF013B0337}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financas.Infra.Repositorio", "Financas.Infra.Repositorio\Financas.Infra.Repositorio.csproj", "{B7B53337-88DE-4154-BE25-F7B15AFEF619}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Financas.Infra.Repositorio", "Financas.Infra.Repositorio\Financas.Infra.Repositorio.csproj", "{B7B53337-88DE-4154-BE25-F7B15AFEF619}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financas.Dominio.Handler", "Financas.Dominio.Handler\Financas.Dominio.Handler.csproj", "{1906AFD9-458A-455F-A06A-11AAF6FEF60B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{B7B53337-88DE-4154-BE25-F7B15AFEF619}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7B53337-88DE-4154-BE25-F7B15AFEF619}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7B53337-88DE-4154-BE25-F7B15AFEF619}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1906AFD9-458A-455F-A06A-11AAF6FEF60B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1906AFD9-458A-455F-A06A-11AAF6FEF60B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1906AFD9-458A-455F-A06A-11AAF6FEF60B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1906AFD9-458A-455F-A06A-11AAF6FEF60B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{C22D8D73-2DAB-4A03-8518-E3484FC83993} = {0298D800-8CAF-4F3F-9CFA-A23256C42D6C}
 		{1D93A49C-671E-42BB-B6C9-7BBF013B0337} = {785F2BE4-5846-40CE-B158-5E9CEB52AEA0}
 		{B7B53337-88DE-4154-BE25-F7B15AFEF619} = {785F2BE4-5846-40CE-B158-5E9CEB52AEA0}
+		{1906AFD9-458A-455F-A06A-11AAF6FEF60B} = {0298D800-8CAF-4F3F-9CFA-A23256C42D6C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1B17EB29-DEDD-4DAD-B588-305F13C30F84}
