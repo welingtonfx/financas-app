@@ -1,5 +1,5 @@
-﻿using Financas.Dominio.Handler.Handlers;
-using Financas.Interface.Repositorio;
+﻿using Financas.Dominio.Handler.Commands;
+using Financas.Dominio.Handler.Handlers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -12,8 +12,6 @@ namespace Financas.API.Controller
     [Produces("application/json")]
     public class CategoriaController : ControllerBase
     {
-        private readonly ICategoriaRepositorio categoriaRepositorio;
-
         private readonly IMediator _mediator;
 
         public CategoriaController(IMediator mediator)
@@ -27,9 +25,14 @@ namespace Financas.API.Controller
             var query = new ObterCategoriasQuery();
             var resultado = await _mediator.Send(query);
 
-            //var resultado = await categoriaRepositorio.ObterCategorias();
-
             return Ok(resultado);
+        }
+
+        [HttpPost("criarcategoria")]
+        public async Task<IActionResult> CriarCategoria([FromBody] CriarCategoriaCommand command)
+        {
+            var categoria = await _mediator.Send(command);
+            return CreatedAtAction("CriarCategoria", new { Categoria = categoria }, categoria);
         }
     }
 }

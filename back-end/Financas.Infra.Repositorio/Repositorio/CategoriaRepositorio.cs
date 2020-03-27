@@ -17,5 +17,16 @@ namespace Financas.Infra.Repositorio.Repositorio
                     .ToList();
             }
         }
+
+        public async Task<Categoria> CriarCategoria(Categoria categoria)
+        {
+            using (var context = new FinancasContext())
+            {
+                context.Add(categoria);
+                context.SaveChanges();
+
+                return categoria;
+            }
+        }
     }
 }

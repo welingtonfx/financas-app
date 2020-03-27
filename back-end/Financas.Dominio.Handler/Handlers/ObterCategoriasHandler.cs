@@ -15,7 +15,7 @@ namespace Financas.Dominio.Handler.Handlers
         public ObterCategoriasHandler(ICategoriaRepositorio categoriaRepositorio)
         {
             this.categoriaRepositorio = categoriaRepositorio;
-    }
+        }
 
         public async Task<List<Categoria>> Handle(ObterCategoriasQuery request, CancellationToken cancellationToken)
         {

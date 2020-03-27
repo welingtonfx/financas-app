@@ -1,5 +1,7 @@
+using Financas.Dominio.Handler.PipelineBehaviors;
 using Financas.Infra.Repositorio.Repositorio;
 using Financas.Interface.Repositorio;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,9 +58,11 @@ namespace Financas.API
             // Injeções
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddTransient<ICategoriaRepositorio, CategoriaRepositorio>();
-            //services.AddMediatR(typeof(Startup));
 
             services.AddMediatR(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            services.AddValidatorsFromAssembly(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,5 +7,6 @@ namespace Financas.Interface.Repositorio
     public interface ICategoriaRepositorio
     {
         Task<IEnumerable<Categoria>> ObterCategorias();
+        Task<Categoria> CriarCategoria(Categoria categoria);
     }
 }
