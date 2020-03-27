@@ -8,5 +8,6 @@ namespace Financas.Interface.Repositorio
     {
         Task<IEnumerable<Categoria>> ObterCategorias();
         Task<Categoria> CriarCategoria(Categoria categoria);
+        Task ExcluirCategoria(int id);
     }
 }

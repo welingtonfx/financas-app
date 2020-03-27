@@ -34,5 +34,14 @@ namespace Financas.API.Controller
             var categoria = await _mediator.Send(command);
             return CreatedAtAction("CriarCategoria", new { Categoria = categoria }, categoria);
         }
+
+        [HttpDelete("excluircategoria/{id}")]
+        public async Task<IActionResult> ExcluirResult(int id)
+        {
+            var command = new ExcluirCategoriaCommand() { Id = id };
+            await _mediator.Send(command);
+
+            return Ok();
+        }
     }
 }
