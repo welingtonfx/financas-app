@@ -43,5 +43,12 @@ namespace Financas.API.Controller
 
             return Ok();
         }
+
+        [HttpPut("alterarcategoria")]
+        public async Task<IActionResult> AlterarCategoria([FromBody] AlterarCategoriaCommand command)
+        {
+            var categoria = await _mediator.Send(command);
+            return CreatedAtAction("AlterarCategoria", new { Categoria = categoria }, categoria);
+        }
     }
 }

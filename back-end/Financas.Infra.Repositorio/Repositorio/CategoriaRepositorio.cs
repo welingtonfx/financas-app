@@ -29,6 +29,17 @@ namespace Financas.Infra.Repositorio.Repositorio
             }
         }
 
+        public async Task<Categoria> AlterarCategoria(Categoria categoria)
+        {
+            using (var context = new FinancasContext())
+            {
+                context.Update(categoria);
+                await context.SaveChangesAsync();
+
+                return categoria;
+            }
+        }
+
         public async Task ExcluirCategoria(int id)
         {
             using (var context = new FinancasContext())
