@@ -1,5 +1,5 @@
-﻿using Financas.Dominio.Handler.Commands;
-using Financas.Dominio.Handler.Handlers;
+﻿using Financas.Dominio.Handler.Commands.Categoria;
+using Financas.Dominio.Handler.Handlers.Categoria;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -20,7 +20,7 @@ namespace Financas.API.Controller
         }
 
         [HttpGet("obtercategorias")]
-        public async Task<IActionResult> ObterTransacoes()
+        public async Task<IActionResult> ObterCategorias()
         {
             var query = new ObterCategoriasQuery();
             var resultado = await _mediator.Send(query);
@@ -36,7 +36,7 @@ namespace Financas.API.Controller
         }
 
         [HttpDelete("excluircategoria/{id}")]
-        public async Task<IActionResult> ExcluirResult(int id)
+        public async Task<IActionResult> ExcluirCategoria(int id)
         {
             var command = new ExcluirCategoriaCommand() { Id = id };
             await _mediator.Send(command);
@@ -44,9 +44,10 @@ namespace Financas.API.Controller
             return Ok();
         }
 
-        [HttpPut("alterarcategoria")]
-        public async Task<IActionResult> AlterarCategoria([FromBody] AlterarCategoriaCommand command)
+        [HttpPut("alterarcategoria/{id}")]
+        public async Task<IActionResult> AlterarCategoria(int id, [FromBody] AlterarCategoriaCommand command)
         {
+            command.Id = id;
             var categoria = await _mediator.Send(command);
             return CreatedAtAction("AlterarCategoria", new { Categoria = categoria }, categoria);
         }

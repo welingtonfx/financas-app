@@ -1,60 +1,60 @@
 ﻿using Financas.Dominio.Model;
 using Financas.Interface.Repositorio;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Financas.Infra.Repositorio.Repositorio
 {
-    public class CategoriaRepositorio : ICategoriaRepositorio
+    public class TransacaoRepositorio : ITransacaoRepositorio
     {
-        public async Task<IEnumerable<Categoria>> ObterCategorias()
+        public async Task<IEnumerable<Transacao>> ObterTransacoes()
         {
             using (var context = new FinancasContext())
             {
                 return context
-                    .Categorias
+                    .Transacoes
                     .ToList();
             }
         }
 
-        public async Task<Categoria> ObterCategoriaPorId(int id)
+        public async Task<Transacao> ObterTransacaoPorId(int id)
         {
             using (var context = new FinancasContext())
             {
                 return context
-                    .Categorias
+                    .Transacoes
                     .FirstOrDefault(p => p.Id == id);
             }
         }
 
-        public async Task<Categoria> CriarCategoria(Categoria categoria)
+        public async Task<Transacao> CriarTransacao(Transacao transacao)
         {
             using (var context = new FinancasContext())
             {
-                context.Add(categoria);
+                context.Add(transacao);
                 await context.SaveChangesAsync();
 
-                return categoria;
+                return transacao;
             }
         }
 
-        public async Task<Categoria> AlterarCategoria(Categoria categoria)
+        public async Task<Transacao> AlterarTransacao(Transacao transacao)
         {
             using (var context = new FinancasContext())
             {
-                context.Update(categoria);
+                context.Update(transacao);
                 await context.SaveChangesAsync();
 
-                return categoria;
+                return transacao;
             }
         }
 
-        public async Task ExcluirCategoria(int id)
+        public async Task ExcluirTransacao(int id)
         {
             using (var context = new FinancasContext())
             {
-                context.Remove(new Categoria() { Id = id });
+                context.Remove(new Transacao() { Id = id });
                 await context.SaveChangesAsync();
             }
         }

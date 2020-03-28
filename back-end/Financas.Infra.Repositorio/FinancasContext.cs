@@ -23,6 +23,7 @@ namespace Financas.Infra.Repositorio
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoriaConfig());
+            modelBuilder.ApplyConfiguration(new TransacaoConfig());
         }
     }
 }

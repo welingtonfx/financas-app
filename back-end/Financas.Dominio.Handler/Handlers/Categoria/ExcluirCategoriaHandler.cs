@@ -1,12 +1,12 @@
-﻿using Financas.Dominio.Handler.Commands;
+﻿using Financas.Dominio.Handler.Commands.Categoria;
 using Financas.Interface.Repositorio;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Financas.Dominio.Handler.Handlers
+namespace Financas.Dominio.Handler.Handlers.Categoria
 {
-    public class ExcluirCategoriaHandler : IRequestHandler<ExcluirCategoriaCommand>
+    public class ExcluirCategoriaHandler : AsyncRequestHandler<ExcluirCategoriaCommand>
     {
         private readonly ICategoriaRepositorio categoriaRepositorio;
 
@@ -15,11 +15,9 @@ namespace Financas.Dominio.Handler.Handlers
             this.categoriaRepositorio = categoriaRepositorio;
         }
 
-        public async Task<Unit> Handle(ExcluirCategoriaCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(ExcluirCategoriaCommand request, CancellationToken cancellationToken)
         {
-         
             await categoriaRepositorio.ExcluirCategoria(request.Id);
-            return Unit.Value;
         }
     }
 }
