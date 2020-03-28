@@ -14,6 +14,8 @@ namespace Financas.Infra.Repositorio
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Transacao> Transacoes { get; set; }
         public DbSet<TransacaoTipo> TrancacaoTipos { get; set; }
+        public DbSet<ContaTipo> ContaTipos { get; set; }
+        public DbSet<Conta> Contas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,6 +26,7 @@ namespace Financas.Infra.Repositorio
         {
             modelBuilder.ApplyConfiguration(new CategoriaConfig());
             modelBuilder.ApplyConfiguration(new TransacaoConfig());
+            modelBuilder.ApplyConfiguration(new ContaConfig());
         }
     }
 }

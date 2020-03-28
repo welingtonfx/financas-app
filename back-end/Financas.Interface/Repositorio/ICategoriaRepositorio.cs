@@ -6,10 +6,10 @@ namespace Financas.Interface.Repositorio
 {
     public interface ICategoriaRepositorio
     {
-        Task<IEnumerable<Categoria>> ObterCategorias();
-        Task<Categoria> ObterCategoriaPorId(int id);
-        Task<Categoria> CriarCategoria(Categoria categoria);
-        Task<Categoria> AlterarCategoria(Categoria categoria);
-        Task ExcluirCategoria(int id);
+        Task<IEnumerable<Categoria>> Obter();
+        Task<Categoria> ObterPorId(int id);
+        Task<Categoria> Inserir(Categoria entidade);
+        Task<Categoria> Alterar(Categoria entidade);
+        Task Excluir(int id);
     }
 }

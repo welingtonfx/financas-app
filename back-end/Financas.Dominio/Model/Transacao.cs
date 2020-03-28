@@ -8,10 +8,12 @@ namespace Financas.Dominio.Model
         public int Id { get; set; }
         
         public int? IdCategoria { get; set; }
+        
         [ForeignKey("IdCategoria")]
         public Categoria Categoria { get; set; }
 
         public int IdTransacaoTipo { get; set; }
+        
         [ForeignKey("IdTransacaoTipo")]
         public TransacaoTipo TransacaoTipo { get; set; }
 

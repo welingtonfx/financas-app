@@ -18,7 +18,7 @@ namespace Financas.Dominio.Handler.Handlers.Categoria
 
         public async Task<List<Model.Categoria>> Handle(ObterCategoriasQuery request, CancellationToken cancellationToken)
         {
-            var resultado = await categoriaRepositorio.ObterCategorias();
+            var resultado = await categoriaRepositorio.Obter();
             return resultado.ToList();
         }
     }

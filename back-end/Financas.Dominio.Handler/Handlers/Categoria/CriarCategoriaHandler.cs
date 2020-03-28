@@ -18,7 +18,7 @@ namespace Financas.Dominio.Handler.Handlers.Categoria
         public async Task<Model.Categoria> Handle(CriarCategoriaCommand request, CancellationToken cancellationToken)
         {
             var categoria = this.CriarCategoria(request);
-            return await categoriaRepositorio.CriarCategoria(categoria);
+            return await categoriaRepositorio.Inserir(categoria);
         }
 
         private Model.Categoria CriarCategoria(CriarCategoriaCommand request)

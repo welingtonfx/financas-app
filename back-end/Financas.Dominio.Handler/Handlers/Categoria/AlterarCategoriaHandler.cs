@@ -16,11 +16,11 @@ namespace Financas.Dominio.Handler.Handlers.Categoria
 
         public async Task<Model.Categoria> Handle(AlterarCategoriaCommand request, CancellationToken cancellationToken)
         {
-            var categoria = await categoriaRepositorio.ObterCategoriaPorId(request.Id) ?? new Model.Categoria();
+            var categoria = await categoriaRepositorio.ObterPorId(request.Id) ?? new Model.Categoria();
 
             MapearDadosCategoria(categoria, request);
 
-            return await categoriaRepositorio.AlterarCategoria(categoria);
+            return await categoriaRepositorio.Alterar(categoria);
         }
 
         private void MapearDadosCategoria(Model.Categoria categoria, AlterarCategoriaCommand request)

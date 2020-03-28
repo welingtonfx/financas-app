@@ -19,7 +19,7 @@ namespace Financas.Dominio.Handler.Handlers.Transacao
 
         public async Task<List<Model.Transacao>> Handle(ObterTransacoesQuery request, CancellationToken cancellationToken)
         {
-            var resultado = await transacaoRepositorio.ObterTransacoes();
+            var resultado = await transacaoRepositorio.Obter();
             return resultado.ToList();
         }
     }

@@ -1,34 +1,34 @@
 ﻿using Financas.Dominio.Model;
 using Financas.Interface.Repositorio;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Financas.Infra.Repositorio.Repositorio
 {
-    public class CategoriaRepositorio : ICategoriaRepositorio
+    public class ContaRepositorio : IContaRepositorio
     {
-        public async Task<IEnumerable<Categoria>> Obter()
+        public async Task<IEnumerable<Conta>> Obter()
         {
             using (var context = new FinancasContext())
             {
                 return context
-                    .Categorias
+                    .Contas
                     .ToList();
             }
         }
 
-        public async Task<Categoria> ObterPorId(int id)
+        public async Task<Conta> ObterPorId(int id)
         {
             using (var context = new FinancasContext())
             {
                 return context
-                    .Categorias
+                    .Contas
                     .FirstOrDefault(p => p.Id == id);
             }
         }
 
-        public async Task<Categoria> Inserir(Categoria entidade)
+        public async Task<Conta> Inserir(Conta entidade)
         {
             using (var context = new FinancasContext())
             {
@@ -39,7 +39,7 @@ namespace Financas.Infra.Repositorio.Repositorio
             }
         }
 
-        public async Task<Categoria> Alterar(Categoria entidade)
+        public async Task<Conta> Alterar(Conta entidade)
         {
             using (var context = new FinancasContext())
             {
@@ -54,7 +54,7 @@ namespace Financas.Infra.Repositorio.Repositorio
         {
             using (var context = new FinancasContext())
             {
-                context.Remove(new Categoria() { Id = id });
+                context.Remove(new Conta() { Id = id });
                 await context.SaveChangesAsync();
             }
         }

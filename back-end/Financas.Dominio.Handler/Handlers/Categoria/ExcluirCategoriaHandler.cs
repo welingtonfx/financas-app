@@ -17,7 +17,7 @@ namespace Financas.Dominio.Handler.Handlers.Categoria
 
         protected override async Task Handle(ExcluirCategoriaCommand request, CancellationToken cancellationToken)
         {
-            await categoriaRepositorio.ExcluirCategoria(request.Id);
+            await categoriaRepositorio.Excluir(request.Id);
         }
     }
 }

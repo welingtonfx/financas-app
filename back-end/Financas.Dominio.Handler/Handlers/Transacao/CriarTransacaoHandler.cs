@@ -18,7 +18,7 @@ namespace Financas.Dominio.Handler.Handlers.Transacao
         public async Task<Model.Transacao> Handle(CriarTransacaoCommand request, CancellationToken cancellationToken)
         {
             var transacao = this.CriarTransacao(request);
-            return await transacaoRepositorio.CriarTransacao(transacao);
+            return await transacaoRepositorio.Inserir(transacao);
         }
 
         private Model.Transacao CriarTransacao(CriarTransacaoCommand request)

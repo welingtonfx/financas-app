@@ -17,11 +17,11 @@ namespace Financas.Dominio.Handler.Handlers.Transacao
 
         public async Task<Model.Transacao> Handle(AlterarTransacaoCommand request, CancellationToken cancellationToken)
         {
-            var transacao = await transacaoRepositorio.ObterTransacaoPorId(request.Id) ?? new Model.Transacao();
+            var transacao = await transacaoRepositorio.ObterPorId(request.Id) ?? new Model.Transacao();
 
             MapearDadosTransacao(transacao, request);
 
-            return await transacaoRepositorio.AlterarTransacao(transacao);
+            return await transacaoRepositorio.Alterar(transacao);
         }
 
         private void MapearDadosTransacao(Model.Transacao transacao, AlterarTransacaoCommand request)

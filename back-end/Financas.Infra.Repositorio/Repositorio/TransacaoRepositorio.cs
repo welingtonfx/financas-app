@@ -8,7 +8,7 @@ namespace Financas.Infra.Repositorio.Repositorio
 {
     public class TransacaoRepositorio : ITransacaoRepositorio
     {
-        public async Task<IEnumerable<Transacao>> ObterTransacoes()
+        public async Task<IEnumerable<Transacao>> Obter()
         {
             using (var context = new FinancasContext())
             {
@@ -18,7 +18,7 @@ namespace Financas.Infra.Repositorio.Repositorio
             }
         }
 
-        public async Task<Transacao> ObterTransacaoPorId(int id)
+        public async Task<Transacao> ObterPorId(int id)
         {
             using (var context = new FinancasContext())
             {
@@ -28,29 +28,29 @@ namespace Financas.Infra.Repositorio.Repositorio
             }
         }
 
-        public async Task<Transacao> CriarTransacao(Transacao transacao)
+        public async Task<Transacao> Inserir(Transacao entidade)
         {
             using (var context = new FinancasContext())
             {
-                context.Add(transacao);
+                context.Add(entidade);
                 await context.SaveChangesAsync();
 
-                return transacao;
+                return entidade;
             }
         }
 
-        public async Task<Transacao> AlterarTransacao(Transacao transacao)
+        public async Task<Transacao> Alterar(Transacao entidade)
         {
             using (var context = new FinancasContext())
             {
-                context.Update(transacao);
+                context.Update(entidade);
                 await context.SaveChangesAsync();
 
-                return transacao;
+                return entidade;
             }
         }
 
-        public async Task ExcluirTransacao(int id)
+        public async Task Excluir(int id)
         {
             using (var context = new FinancasContext())
             {

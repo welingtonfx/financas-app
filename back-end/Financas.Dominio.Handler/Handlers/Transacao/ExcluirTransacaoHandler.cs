@@ -17,7 +17,7 @@ namespace Financas.Dominio.Handler.Handlers.Transacao
 
         protected override async Task Handle(ExcluirTransacaoCommand request, CancellationToken cancellationToken)
         {
-            await transacaoRepositorio.ExcluirTransacao(request.Id);
+            await transacaoRepositorio.Excluir(request.Id);
         }
     }
 }

@@ -6,10 +6,10 @@ namespace Financas.Interface.Repositorio
 {
     public interface ITransacaoRepositorio
     {
-        Task<IEnumerable<Transacao>> ObterTransacoes();
-        Task<Transacao> ObterTransacaoPorId(int id);
-        Task<Transacao> CriarTransacao(Transacao transacao);
-        Task<Transacao> AlterarTransacao(Transacao transacao);
-        Task ExcluirTransacao(int id);
+        Task<IEnumerable<Transacao>> Obter();
+        Task<Transacao> ObterPorId(int id);
+        Task<Transacao> Inserir(Transacao entidade);
+        Task<Transacao> Alterar(Transacao entidade);
+        Task Excluir(int id);
     }
 }
