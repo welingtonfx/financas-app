@@ -1,4 +1,5 @@
 ﻿using Financas.Dominio.Handler.Commands.Conta;
+using Financas.Infra.Interface.Repositorio;
 using Financas.Interface.Repositorio;
 using MediatR;
 using System.Threading;
@@ -8,17 +9,26 @@ namespace Financas.Dominio.Handler.Handlers.Conta
 {
     public class CriarContaHandler : IRequestHandler<CriarContaCommand, Model.Conta>
     {
+        private readonly IUnitOfWork unitOfWork;
         private readonly IContaRepositorio contaRepositorio;
 
-        public CriarContaHandler(IContaRepositorio contaRepositorio)
+        public CriarContaHandler(IUnitOfWork unitOfWork,
+            IContaRepositorio contaRepositorio)
         {
+            this.unitOfWork = unitOfWork;
             this.contaRepositorio = contaRepositorio;
         }
 
         public async Task<Model.Conta> Handle(CriarContaCommand request, CancellationToken cancellationToken)
         {
-            var conta = this.CriarConta(request);
-            return await contaRepositorio.Inserir(conta);
+            using (var uow = unitOfWork)
+            {
+                var conta = this.CriarConta(request);
+                var resultado = await contaRepositorio.Inserir(conta);
+                uow.PersistirTransacao();
+
+                return resultado;
+            }
         }
 
         private Model.Conta CriarConta(CriarContaCommand request)

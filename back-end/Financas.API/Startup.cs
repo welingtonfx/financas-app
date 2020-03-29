@@ -63,6 +63,8 @@ namespace Financas.API
             services.AddTransient<ITransacaoRepositorio, TransacaoRepositorio>();
             services.AddTransient<IContaRepositorio, ContaRepositorio>();
             services.AddScoped(typeof(IRepositorio<>), typeof(RepositorioBase<>));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddScoped(typeof(FinancasContext));
 
             services.AddMediatR(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));

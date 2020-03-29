@@ -1,4 +1,5 @@
 ﻿using Financas.Dominio.Handler.Commands.Transacao;
+using Financas.Infra.Interface.Repositorio;
 using Financas.Interface.Repositorio;
 using MediatR;
 using System.Threading;
@@ -8,20 +9,29 @@ namespace Financas.Dominio.Handler.Handlers.Transacao
 {
     public class AlterarTransacaoHandler : IRequestHandler<AlterarTransacaoCommand, Model.Transacao>
     {
+        private readonly IUnitOfWork unitOfWork;
         private readonly ITransacaoRepositorio transacaoRepositorio;
 
-        public AlterarTransacaoHandler(ITransacaoRepositorio transacaoRepositorio)
+        public AlterarTransacaoHandler(IUnitOfWork unitOfWork,
+            ITransacaoRepositorio transacaoRepositorio)
         {
+            this.unitOfWork = unitOfWork;
             this.transacaoRepositorio = transacaoRepositorio;
         }
 
         public async Task<Model.Transacao> Handle(AlterarTransacaoCommand request, CancellationToken cancellationToken)
         {
-            var transacao = await transacaoRepositorio.ObterPorId(request.Id) ?? new Model.Transacao();
+            using (var uow = unitOfWork)
+            {
+                var transacao = await transacaoRepositorio.ObterPorId(request.Id) ?? new Model.Transacao();
 
-            MapearDadosTransacao(transacao, request);
+                MapearDadosTransacao(transacao, request);
 
-            return await transacaoRepositorio.Alterar(transacao);
+                var resultado = await transacaoRepositorio.Alterar(transacao);
+                uow.PersistirTransacao();
+
+                return resultado;
+            }
         }
 
         private void MapearDadosTransacao(Model.Transacao transacao, AlterarTransacaoCommand request)
