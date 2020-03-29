@@ -45,7 +45,7 @@ namespace Financas.API.Controller
         }
 
         [HttpPut("alterarconta/{id}")]
-        public async Task<IActionResult> AlterarCategoria(int id, [FromBody] AlterarContaCommand command)
+        public async Task<IActionResult> AlterarConta(int id, [FromBody] AlterarContaCommand command)
         {
             command.Id = id;
             var conta = await _mediator.Send(command);

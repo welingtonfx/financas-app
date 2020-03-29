@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Financas.Dominio.Interface;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Financas.Dominio.Model
 {
-    public class Transacao
+    public class Transacao : BaseEntidade
     {
-        public int Id { get; set; }
-        
         public int? IdCategoria { get; set; }
         
         [ForeignKey("IdCategoria")]

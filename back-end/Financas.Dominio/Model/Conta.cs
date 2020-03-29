@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Financas.Dominio.Interface;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Financas.Dominio.Model
 {
-    public class Conta
+    public class Conta : BaseEntidade
     {
-        public int Id { get; set; }
-
         public int IdContaTipo { get; set; }
         
         [ForeignKey("IdContaTipo")]

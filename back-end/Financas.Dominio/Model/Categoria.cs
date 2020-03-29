@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Financas.Dominio.Interface;
+using System.Collections.Generic;
 
 namespace Financas.Dominio.Model
 {
-    public class Categoria
+    public class Categoria : BaseEntidade
     {
-        public int Id { get; set; }
         public string Descricao { get; set; }
         public int? IdCategoriaPai { get; set; }
 

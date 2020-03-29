@@ -1,8 +1,9 @@
-﻿namespace Financas.Dominio.Model
+﻿using Financas.Dominio.Interface;
+
+namespace Financas.Dominio.Model
 {
-    public class TransacaoTipo
+    public class TransacaoTipo : BaseEntidade
     {
-        public int Id { get; set; }
         public string Descricao { get; set; }
     }
 }

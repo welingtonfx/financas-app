@@ -1,15 +1,10 @@
 ﻿using Financas.Dominio.Model;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Financas.Infra.Interface.Repositorio;
 
 namespace Financas.Interface.Repositorio
 {
-    public interface ICategoriaRepositorio
+    public interface ICategoriaRepositorio : IRepositorio<Categoria>
     {
-        Task<IEnumerable<Categoria>> Obter();
-        Task<Categoria> ObterPorId(int id);
-        Task<Categoria> Inserir(Categoria entidade);
-        Task<Categoria> Alterar(Categoria entidade);
-        Task Excluir(int id);
+
     }
 }

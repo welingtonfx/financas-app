@@ -1,4 +1,6 @@
 using Financas.Dominio.Handler.PipelineBehaviors;
+using Financas.Infra.Interface.Repositorio;
+using Financas.Infra.Repositorio;
 using Financas.Infra.Repositorio.Repositorio;
 using Financas.Interface.Repositorio;
 using FluentValidation;
@@ -60,6 +62,7 @@ namespace Financas.API
             services.AddTransient<ICategoriaRepositorio, CategoriaRepositorio>();
             services.AddTransient<ITransacaoRepositorio, TransacaoRepositorio>();
             services.AddTransient<IContaRepositorio, ContaRepositorio>();
+            services.AddScoped(typeof(IRepositorio<>), typeof(RepositorioBase<>));
 
             services.AddMediatR(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
