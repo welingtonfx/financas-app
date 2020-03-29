@@ -1,4 +1,5 @@
-﻿using Financas.Dominio.Handler.Commands.Conta;
+﻿using AutoMapper;
+using Financas.Dominio.Handler.Commands.Conta;
 using Financas.Infra.Interface.Repositorio;
 using Financas.Interface.Repositorio;
 using MediatR;
@@ -10,12 +11,15 @@ namespace Financas.Dominio.Handler.Handlers.Conta
     public class CriarContaHandler : IRequestHandler<CriarContaCommand, Model.Conta>
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
         private readonly IContaRepositorio contaRepositorio;
 
         public CriarContaHandler(IUnitOfWork unitOfWork,
+            IMapper mapper,
             IContaRepositorio contaRepositorio)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
             this.contaRepositorio = contaRepositorio;
         }
 
@@ -23,20 +27,11 @@ namespace Financas.Dominio.Handler.Handlers.Conta
         {
             using (var uow = unitOfWork)
             {
-                var conta = this.CriarConta(request);
-                var resultado = await contaRepositorio.Inserir(conta);
+                var resultado = await contaRepositorio.Inserir(mapper.Map<Model.Conta>(request));
                 uow.PersistirTransacao();
 
                 return resultado;
             }
-        }
-
-        private Model.Conta CriarConta(CriarContaCommand request)
-        {
-            var conta = new Model.Conta();
-            conta.Descricao = request.Descricao;
-            conta.IdContaTipo = request.IdContaTipo;
-            return conta;
         }
     }
 }

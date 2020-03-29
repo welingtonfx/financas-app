@@ -24,6 +24,7 @@ namespace Financas.Dominio.Handler.Handlers.Transacao
             using (var uow = unitOfWork)
             {
                 await transacaoRepositorio.Excluir(request.Id);
+                uow.PersistirTransacao();
             }
         }
     }

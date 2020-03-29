@@ -1,3 +1,4 @@
+using AutoMapper;
 using Financas.Dominio.Handler.PipelineBehaviors;
 using Financas.Infra.Interface.Repositorio;
 using Financas.Infra.Repositorio;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Reflection;
 
 namespace Financas.API
 {
@@ -29,14 +31,36 @@ namespace Financas.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMvc().AddNewtonsoftJson();
 
+            ConfigureServicesCors(services);
+            ConfigureServicesSwagger(services);
+            ConfigureServicesAutoMapper(services);
+
+            // Injeções
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddTransient<ICategoriaRepositorio, CategoriaRepositorio>();
+            services.AddTransient<ITransacaoRepositorio, TransacaoRepositorio>();
+            services.AddTransient<IContaRepositorio, ContaRepositorio>();
+            services.AddScoped(typeof(IRepositorio<>), typeof(RepositorioBase<>));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddScoped(typeof(FinancasContext));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            services.AddMediatR(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));
+            services.AddValidatorsFromAssembly(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));
+        }
+
+        private void ConfigureServicesCors(IServiceCollection services)
+        {
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
+        }
 
-            services.AddMvc().AddNewtonsoftJson();
-
+        private void ConfigureServicesSwagger(IServiceCollection services)
+        {
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc(
@@ -55,21 +79,11 @@ namespace Financas.API
             });
 
             services.AddSwaggerGenNewtonsoftSupport();
+        }
 
-
-            // Injeções
-            services.AddSingleton<IConfiguration>(Configuration);
-            services.AddTransient<ICategoriaRepositorio, CategoriaRepositorio>();
-            services.AddTransient<ITransacaoRepositorio, TransacaoRepositorio>();
-            services.AddTransient<IContaRepositorio, ContaRepositorio>();
-            services.AddScoped(typeof(IRepositorio<>), typeof(RepositorioBase<>));
-            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-            services.AddScoped(typeof(FinancasContext));
-
-            services.AddMediatR(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
-            services.AddValidatorsFromAssembly(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));
+        private void ConfigureServicesAutoMapper(IServiceCollection services)
+        {
+            services.AddAutoMapper(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using Financas.Dominio.Handler.Commands.Transacao;
+﻿using AutoMapper;
+using Financas.Dominio.Handler.Commands.Transacao;
 using Financas.Infra.Interface.Repositorio;
 using Financas.Interface.Repositorio;
 using MediatR;
@@ -10,12 +11,15 @@ namespace Financas.Dominio.Handler.Handlers.Transacao
     public class AlterarTransacaoHandler : IRequestHandler<AlterarTransacaoCommand, Model.Transacao>
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
         private readonly ITransacaoRepositorio transacaoRepositorio;
 
         public AlterarTransacaoHandler(IUnitOfWork unitOfWork,
+            IMapper mapper,
             ITransacaoRepositorio transacaoRepositorio)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
             this.transacaoRepositorio = transacaoRepositorio;
         }
 
@@ -25,22 +29,11 @@ namespace Financas.Dominio.Handler.Handlers.Transacao
             {
                 var transacao = await transacaoRepositorio.ObterPorId(request.Id) ?? new Model.Transacao();
 
-                MapearDadosTransacao(transacao, request);
-
-                var resultado = await transacaoRepositorio.Alterar(transacao);
+                var resultado = await transacaoRepositorio.Alterar(mapper.Map(request, transacao));
                 uow.PersistirTransacao();
 
                 return resultado;
             }
-        }
-
-        private void MapearDadosTransacao(Model.Transacao transacao, AlterarTransacaoCommand request)
-        {
-            transacao.IdCategoria = request.IdCategoria;
-            transacao.IdTransacaoTipo = request.IdTransacaoTipo;
-            transacao.Valor = request.Valor;
-            transacao.DataTransacao = request.DataTransacao;
-            transacao.Observacoes = request.Observacoes;
         }
     }
 }

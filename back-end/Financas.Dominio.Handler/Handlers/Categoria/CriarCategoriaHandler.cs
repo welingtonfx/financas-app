@@ -1,4 +1,5 @@
-﻿using Financas.Dominio.Handler.Commands.Categoria;
+﻿using AutoMapper;
+using Financas.Dominio.Handler.Commands.Categoria;
 using Financas.Infra.Interface.Repositorio;
 using Financas.Interface.Repositorio;
 using MediatR;
@@ -10,12 +11,15 @@ namespace Financas.Dominio.Handler.Handlers.Categoria
     public class CriarCategoriaHandler : IRequestHandler<CriarCategoriaCommand, Model.Categoria>
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
         private readonly ICategoriaRepositorio categoriaRepositorio;
 
         public CriarCategoriaHandler(IUnitOfWork unitOfWork,
+            IMapper mapper,
             ICategoriaRepositorio categoriaRepositorio)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
             this.categoriaRepositorio = categoriaRepositorio;
         }
 
@@ -23,20 +27,11 @@ namespace Financas.Dominio.Handler.Handlers.Categoria
         {
             using (var uow = unitOfWork)
             {
-                var categoria = this.CriarCategoria(request);
-                var resultado = await categoriaRepositorio.Inserir(categoria);
+                var resultado = await categoriaRepositorio.Inserir(mapper.Map<Model.Categoria>(request));
                 uow.PersistirTransacao();
 
                 return resultado;
             }
-        }
-
-        private Model.Categoria CriarCategoria(CriarCategoriaCommand request)
-        {
-            var categoria = new Model.Categoria();
-            categoria.Descricao = request.Descricao;
-            categoria.IdCategoriaPai = request.IdCategoriaPai;
-            return categoria;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Financas.Dominio.Handler.Commands.Categoria;
+﻿using AutoMapper;
+using Financas.Dominio.Handler.Commands.Categoria;
 using Financas.Infra.Interface.Repositorio;
 using Financas.Interface.Repositorio;
 using MediatR;
@@ -10,11 +11,14 @@ namespace Financas.Dominio.Handler.Handlers.Categoria
     public class AlterarCategoriaHandler : IRequestHandler<AlterarCategoriaCommand, Model.Categoria>
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
         private readonly ICategoriaRepositorio categoriaRepositorio;
         public AlterarCategoriaHandler(IUnitOfWork unitOfWork,
+            IMapper mapper,
             ICategoriaRepositorio categoriaRepositorio)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
             this.categoriaRepositorio = categoriaRepositorio;
         }
 
@@ -24,9 +28,7 @@ namespace Financas.Dominio.Handler.Handlers.Categoria
             {
                 var categoria = await categoriaRepositorio.ObterPorId(request.Id) ?? new Model.Categoria();
 
-                MapearDadosCategoria(categoria, request);
-
-                var resultado = await categoriaRepositorio.Alterar(categoria);
+                var resultado = await categoriaRepositorio.Alterar(mapper.Map(request, categoria));
                 uow.PersistirTransacao();
 
                 return resultado;

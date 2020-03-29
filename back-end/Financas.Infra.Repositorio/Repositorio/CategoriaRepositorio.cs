@@ -6,8 +6,6 @@ namespace Financas.Infra.Repositorio.Repositorio
 {
     public class CategoriaRepositorio : RepositorioBase<Categoria>, ICategoriaRepositorio
     {
-        private readonly IUnitOfWork unitOfWork;
-
         public CategoriaRepositorio(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 

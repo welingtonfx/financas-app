@@ -6,8 +6,6 @@ namespace Financas.Infra.Repositorio.Repositorio
 {
     public class TransacaoRepositorio : RepositorioBase<Transacao>, ITransacaoRepositorio
     {
-        private readonly IUnitOfWork unitOfWork;
-
         public TransacaoRepositorio(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 

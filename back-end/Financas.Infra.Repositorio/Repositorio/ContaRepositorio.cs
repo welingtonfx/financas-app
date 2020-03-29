@@ -6,8 +6,6 @@ namespace Financas.Infra.Repositorio.Repositorio
 {
     public class ContaRepositorio : RepositorioBase<Conta>, IContaRepositorio
     {
-        private readonly IUnitOfWork unitOfWork;
-
         public ContaRepositorio(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 
