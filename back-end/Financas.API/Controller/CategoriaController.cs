@@ -1,7 +1,10 @@
 ﻿using Financas.Dominio.Handler.Commands.Categoria;
 using Financas.Dominio.Handler.Handlers.Categoria;
+using Financas.Infra.Exception;
+using Financas.Infra.Interface.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Financas.API.Controller
@@ -12,18 +15,21 @@ namespace Financas.API.Controller
     [Produces("application/json")]
     public class CategoriaController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly INotificador notificador;
+        private readonly IMediator mediator;
 
-        public CategoriaController(IMediator mediator)
+        public CategoriaController(INotificador notificador,
+            IMediator mediator)
         {
-            this._mediator = mediator;
+            this.notificador = notificador;
+            this.mediator = mediator;
         }
 
         [HttpGet("obtercategorias")]
         public async Task<IActionResult> ObterCategorias()
         {
             var query = new ObterCategoriasQuery();
-            var resultado = await _mediator.Send(query);
+            var resultado = await mediator.Send(query);
 
             return Ok(resultado);
         }
@@ -31,25 +37,46 @@ namespace Financas.API.Controller
         [HttpPost("criarcategoria")]
         public async Task<IActionResult> CriarCategoria([FromBody] CriarCategoriaCommand command)
         {
-            var categoria = await _mediator.Send(command);
-            return CreatedAtAction("CriarCategoria", new { Categoria = categoria }, categoria);
+            try
+            {
+                var categoria = await mediator.Send(command);
+                return CreatedAtAction("CriarCategoria", new { Categoria = categoria }, categoria);
+            }
+            catch (FinancasException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
+            {
+                return BadRequest(notificador.ObterMensagens());
+            }
         }
 
         [HttpDelete("excluircategoria/{id}")]
         public async Task<IActionResult> ExcluirCategoria(int id)
         {
-            var command = new ExcluirCategoriaCommand() { Id = id };
-            await _mediator.Send(command);
+            try
+            {
+                var command = new ExcluirCategoriaCommand() { Id = id };
+                await mediator.Send(command);
 
-            return Ok();
+                return Ok();
+            }
+            catch (FinancasException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
+            {
+                return BadRequest(notificador.ObterMensagens());
+            }
         }
 
         [HttpPut("alterarcategoria/{id}")]
         public async Task<IActionResult> AlterarCategoria(int id, [FromBody] AlterarCategoriaCommand command)
         {
-            command.Id = id;
-            var categoria = await _mediator.Send(command);
-            return CreatedAtAction("AlterarCategoria", new { Categoria = categoria }, categoria);
+            try
+            {
+                command.Id = id;
+                var categoria = await mediator.Send(command);
+                return CreatedAtAction("AlterarCategoria", new { Categoria = categoria }, categoria);
+            }
+            catch (FinancasException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
+            {
+                return BadRequest(notificador.ObterMensagens());
+            }
         }
     }
 }

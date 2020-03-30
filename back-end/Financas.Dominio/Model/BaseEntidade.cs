@@ -1,4 +1,4 @@
-﻿using Financas.Dominio.Interface;
+﻿using Financas.Infra.Interface.Comum;
 
 namespace Financas.Dominio.Model
 {

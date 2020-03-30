@@ -1,5 +1,7 @@
 using AutoMapper;
 using Financas.Dominio.Handler.PipelineBehaviors;
+using Financas.Infra.Comum;
+using Financas.Infra.Interface.Comum;
 using Financas.Infra.Interface.Repositorio;
 using Financas.Infra.Repositorio;
 using Financas.Infra.Repositorio.Repositorio;
@@ -44,6 +46,7 @@ namespace Financas.API
             services.AddScoped(typeof(IRepositorio<>), typeof(RepositorioBase<>));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddScoped(typeof(FinancasContext));
+            services.AddScoped<INotificador, Notificador>();
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             services.AddMediatR(AppDomain.CurrentDomain.Load("Financas.Dominio.Handler"));

@@ -1,6 +1,4 @@
-﻿using Financas.Dominio.Interface;
-
-namespace Financas.Dominio.Model
+﻿namespace Financas.Dominio.Model
 {
     public class ContaTipo : BaseEntidade
     {

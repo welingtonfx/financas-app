@@ -1,4 +1,4 @@
-﻿namespace Financas.Dominio.Interface
+﻿namespace Financas.Infra.Interface.Comum
 {
     public interface IIdentificador
     {

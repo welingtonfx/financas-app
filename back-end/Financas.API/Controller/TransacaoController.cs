@@ -1,7 +1,10 @@
 ﻿using Financas.Dominio.Handler.Commands.Transacao;
 using Financas.Dominio.Handler.Queries.Transacao;
+using Financas.Infra.Exception;
+using Financas.Infra.Interface.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Financas.API.Controller
@@ -12,18 +15,21 @@ namespace Financas.API.Controller
     [Produces("application/json")]
     public class TransacaoController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly INotificador notificador;
+        private readonly IMediator mediator;
 
-        public TransacaoController(IMediator mediator)
+        public TransacaoController(INotificador notificador,
+            IMediator mediator)
         {
-            this._mediator = mediator;
+            this.notificador = notificador;
+            this.mediator = mediator;
         }
 
         [HttpGet("obtertransacoes")]
         public async Task<IActionResult> ObterTransacoes()
         {
             var query = new ObterTransacoesQuery();
-            var resultado = await _mediator.Send(query);
+            var resultado = await mediator.Send(query);
 
             return Ok(resultado);
         }
@@ -31,25 +37,46 @@ namespace Financas.API.Controller
         [HttpPost("criartransacao")]
         public async Task<IActionResult> CriarTransacao([FromBody] CriarTransacaoCommand command)
         {
-            var transacao = await _mediator.Send(command);
-            return CreatedAtAction("CriarTransacao", new { Transacao = transacao }, transacao);
+            try
+            {
+                var transacao = await mediator.Send(command);
+                return CreatedAtAction("CriarTransacao", new { Transacao = transacao }, transacao);
+            }
+            catch (FinancasException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
+            {
+                return BadRequest(notificador.ObterMensagens());
+            }
         }
 
         [HttpDelete("excluirtransacao/{id}")]
         public async Task<IActionResult> ExcluirTransacao(int id)
         {
-            var command = new ExcluirTransacaoCommand() { Id = id };
-            await _mediator.Send(command);
+            try
+            {
+                var command = new ExcluirTransacaoCommand() { Id = id };
+                await mediator.Send(command);
 
-            return Ok();
+                return Ok();
+            }
+            catch (FinancasException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
+            {
+                return BadRequest(notificador.ObterMensagens());
+            }
         }
 
         [HttpPut("alterartransacao/{id}")]
         public async Task<IActionResult> AlterarTransacao(int id, [FromBody] AlterarTransacaoCommand command)
         {
-            command.Id = id;
-            var transacao = await _mediator.Send(command);
-            return CreatedAtAction("AlterarTransacao", new { Transacao = transacao }, transacao);
+            try
+            {
+                command.Id = id;
+                var transacao = await mediator.Send(command);
+                return CreatedAtAction("AlterarTransacao", new { Transacao = transacao }, transacao);
+            }
+            catch (FinancasException ex) when (ex.StatusCode == HttpStatusCode.BadRequest)
+            {
+                return BadRequest(notificador.ObterMensagens());
+            }
         }
     }
 }

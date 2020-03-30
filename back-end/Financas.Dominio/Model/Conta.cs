@@ -1,5 +1,4 @@
-﻿using Financas.Dominio.Interface;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Financas.Dominio.Model
 {

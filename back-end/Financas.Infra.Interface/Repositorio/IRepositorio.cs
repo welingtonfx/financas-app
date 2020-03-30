@@ -1,4 +1,4 @@
-﻿using Financas.Dominio.Interface;
+﻿using Financas.Infra.Interface.Comum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
