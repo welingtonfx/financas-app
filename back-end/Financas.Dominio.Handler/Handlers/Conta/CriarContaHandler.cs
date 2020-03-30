@@ -8,17 +8,15 @@ using System.Threading.Tasks;
 
 namespace Financas.Dominio.Handler.Handlers.Conta
 {
-    public class CriarContaHandler : IRequestHandler<CriarContaCommand, Model.Conta>
+    public class CriarContaHandler : HandlerBase, IRequestHandler<CriarContaCommand, Model.Conta>
     {
-        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly IContaRepositorio contaRepositorio;
 
         public CriarContaHandler(IUnitOfWork unitOfWork,
             IMapper mapper,
-            IContaRepositorio contaRepositorio)
+            IContaRepositorio contaRepositorio) : base(unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.contaRepositorio = contaRepositorio;
         }

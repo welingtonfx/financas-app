@@ -8,17 +8,15 @@ using System.Threading.Tasks;
 
 namespace Financas.Dominio.Handler.Handlers.Categoria
 {
-    public class CriarCategoriaHandler : IRequestHandler<CriarCategoriaCommand, Model.Categoria>
+    public class CriarCategoriaHandler : HandlerBase, IRequestHandler<CriarCategoriaCommand, Model.Categoria>
     {
-        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly ICategoriaRepositorio categoriaRepositorio;
 
         public CriarCategoriaHandler(IUnitOfWork unitOfWork,
             IMapper mapper,
-            ICategoriaRepositorio categoriaRepositorio)
+            ICategoriaRepositorio categoriaRepositorio) : base(unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.categoriaRepositorio = categoriaRepositorio;
         }

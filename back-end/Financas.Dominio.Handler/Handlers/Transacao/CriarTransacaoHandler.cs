@@ -8,17 +8,15 @@ using System.Threading.Tasks;
 
 namespace Financas.Dominio.Handler.Handlers.Transacao
 {
-    public class CriarTransacaoHandler : IRequestHandler<CriarTransacaoCommand, Model.Transacao>
+    public class CriarTransacaoHandler : HandlerBase, IRequestHandler<CriarTransacaoCommand, Model.Transacao>
     {
-        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly ITransacaoRepositorio transacaoRepositorio;
 
         public CriarTransacaoHandler(IUnitOfWork unitOfWork,
             IMapper mapper,
-            ITransacaoRepositorio transacaoRepositorio)
+            ITransacaoRepositorio transacaoRepositorio) : base(unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.transacaoRepositorio = transacaoRepositorio;
         }

@@ -7,24 +7,23 @@ using System.Threading.Tasks;
 
 namespace Financas.Dominio.Handler.Handlers.Conta
 {
-    public class ExcluirContaHandler : AsyncRequestHandler<ExcluirContaCommand>
+    public class ExcluirContaHandler : HandlerBase, IRequestHandler<ExcluirContaCommand>
     {
-        private readonly IUnitOfWork unitOfWork;
         private readonly IContaRepositorio contaRepositorio;
 
         public ExcluirContaHandler(IUnitOfWork unitOfWork,
-            IContaRepositorio contaRepositorio)
+            IContaRepositorio contaRepositorio) : base(unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
             this.contaRepositorio = contaRepositorio;
         }
 
-        protected override async Task Handle(ExcluirContaCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ExcluirContaCommand request, CancellationToken cancellationToken)
         {
             using (var uow = unitOfWork)
             {
                 await contaRepositorio.Excluir(request.Id);
                 uow.PersistirTransacao();
+                return Unit.Value;
             }
         }
     }

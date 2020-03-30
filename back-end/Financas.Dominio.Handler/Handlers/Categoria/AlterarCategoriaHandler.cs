@@ -8,16 +8,14 @@ using System.Threading.Tasks;
 
 namespace Financas.Dominio.Handler.Handlers.Categoria
 {
-    public class AlterarCategoriaHandler : IRequestHandler<AlterarCategoriaCommand, Model.Categoria>
+    public class AlterarCategoriaHandler : HandlerBase, IRequestHandler<AlterarCategoriaCommand, Model.Categoria>
     {
-        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
         private readonly ICategoriaRepositorio categoriaRepositorio;
         public AlterarCategoriaHandler(IUnitOfWork unitOfWork,
             IMapper mapper,
-            ICategoriaRepositorio categoriaRepositorio)
+            ICategoriaRepositorio categoriaRepositorio) : base(unitOfWork)
         {
-            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.categoriaRepositorio = categoriaRepositorio;
         }
