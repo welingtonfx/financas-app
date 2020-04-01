@@ -15,7 +15,7 @@ namespace Financas.Dominio.Handler.Validation.Transacao
                 .NotEmpty()
                 .WithMessage("Preenchimento obrigatório [Data]");
 
-            RuleFor(p => p.Valor)
+            RuleFor(p => p.ValorTotal)
                 .GreaterThan(0)
                 .WithMessage("[Valor] deve ser maior que 0");
         }

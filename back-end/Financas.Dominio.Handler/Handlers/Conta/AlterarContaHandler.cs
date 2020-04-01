@@ -26,6 +26,7 @@ namespace Financas.Dominio.Handler.Handlers.Conta
             using (var uow = unitOfWork)
             {
                 var conta = await contaRepositorio.ObterPorId(request.Id) ?? new Model.Conta();
+                conta.PreencherDataAlteracao();
 
                 var resultado = await contaRepositorio.Alterar(mapper.Map(request, conta));
                 uow.PersistirTransacao();

@@ -3,6 +3,7 @@ using Financas.Dominio.Handler.Commands.Conta;
 using Financas.Infra.Interface.Repositorio;
 using Financas.Interface.Repositorio;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,7 +26,10 @@ namespace Financas.Dominio.Handler.Handlers.Conta
         {
             using (var uow = unitOfWork)
             {
-                var resultado = await contaRepositorio.Inserir(mapper.Map<Model.Conta>(request));
+                var conta = mapper.Map<Model.Conta>(request);
+                conta.DataCriacao = conta.DataAlteracao = DateTime.Now;
+
+                var resultado = await contaRepositorio.Inserir(conta);
                 uow.PersistirTransacao();
 
                 return resultado;
