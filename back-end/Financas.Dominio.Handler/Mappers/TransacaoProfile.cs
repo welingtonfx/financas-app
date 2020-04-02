@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Financas.Dominio.Handler.Commands.Transacao;
+using Financas.Dominio.Model;
+using System;
 
 namespace Financas.Dominio.Handler.Mappers
 {
@@ -7,9 +9,23 @@ namespace Financas.Dominio.Handler.Mappers
     {
         public TransacaoProfile()
         {
-            CreateMap<CriarTransacaoCommand, Model.Transacao>();
+            CreateMap<CriarTransacaoCommand, Transacao>()
+                .ForMember(m => m.DataCriacao, f => f.MapFrom(t => DateTime.Now))
+                .ForMember(m => m.DataAlteracao, f => f.MapFrom(t => DateTime.Now));
 
-            CreateMap<AlterarTransacaoCommand, Model.Transacao>();
+            CreateMap<AlterarTransacaoCommand, Transacao>()
+                .ForMember(m => m.DataCriacao, f => f.Ignore())
+                .ForMember(m => m.DataAlteracao, f => f.MapFrom(t => DateTime.Now));
+
+            CreateMap<TransacaoDetalheCommand, TransacaoDetalhe>()
+                .ForMember(m => m.DataAlteracao, f => f.MapFrom(t => DateTime.Now))
+                .AfterMap((src, dest) =>
+                {
+                    if (dest.DataCriacao == DateTime.MinValue)
+                        dest.DataCriacao = DateTime.Now;
+                });
+
+            CreateMap<TransacaoDetalhe, TransacaoDetalheCommand>();
         }
     }
 }

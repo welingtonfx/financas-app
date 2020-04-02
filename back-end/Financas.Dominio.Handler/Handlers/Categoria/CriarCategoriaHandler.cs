@@ -28,8 +28,6 @@ namespace Financas.Dominio.Handler.Handlers.Categoria
                 var resultado = await categoriaRepositorio.Inserir(mapper.Map<Model.Categoria>(request));
                 uow.PersistirTransacao();
 
-                var x = "corona";
-
                 return resultado;
             }
         }

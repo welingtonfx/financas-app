@@ -1,8 +1,8 @@
 ﻿using Financas.Dominio.Model;
-using Financas.Infra.Repositorio.Configuration;
+using Financas.Infra.Repositorio.EF.Configuration;
 using Microsoft.EntityFrameworkCore;
 
-namespace Financas.Infra.Repositorio
+namespace Financas.Infra.Repositorio.EF
 {
     public class FinancasContext : DbContext
     {

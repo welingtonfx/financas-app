@@ -1,7 +1,8 @@
 ﻿using Financas.Infra.Interface.Repositorio;
+using Financas.Infra.Repositorio.EF;
 using Microsoft.EntityFrameworkCore;
 
-namespace Financas.Infra.Repositorio.Repositorio
+namespace Financas.Infra.EF.Repositorio.Repositorio
 {
     public class UnitOfWork : IUnitOfWork
     {

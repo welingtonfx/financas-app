@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Financas.Infra.Repositorio.Configuration
+namespace Financas.Infra.Repositorio.EF.Configuration
 {
     public class MeioPagamentoConfig : IEntityTypeConfiguration<MeioPagamento>
     {

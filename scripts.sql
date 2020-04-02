@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS conta
    id             serial                        NOT NULL,
    idcontatipo    integer                       NOT NULL,
    descricao      varchar(30)                   NOT NULL,
-   padrao         boolean                       NOT NULL,
    datacriacao    timestamp without time zone   NOT NULL,
    dataalteracao  timestamp without time zone   NOT NULL
 );
@@ -40,7 +39,8 @@ CREATE TABLE IF NOT EXISTS meiopagamento
    idmeiopagamentotipo     integer                       NOT NULL,
    diaefetivacaopagamento  integer,
    datacriacao             timestamp without time zone   NOT NULL,
-   dataalteracao           timestamp without time zone   NOT NULL
+   dataalteracao           timestamp without time zone   NOT NULL,
+   idcontapadrao           integer
 );
 
 ALTER TABLE meiopagamento
@@ -131,6 +131,12 @@ ALTER TABLE conta
   ON DELETE RESTRICT;
 
 ALTER TABLE meiopagamento
+  ADD CONSTRAINT meiopagamento_002_fk FOREIGN KEY (idcontapadrao)
+  REFERENCES conta (id)
+  ON UPDATE CASCADE
+  ON DELETE RESTRICT;
+
+ALTER TABLE meiopagamento
   ADD CONSTRAINT meiopagamento_001_fk FOREIGN KEY (idmeiopagamentotipo)
   REFERENCES meiopagamentotipo (id)
   ON UPDATE CASCADE
@@ -176,4 +182,4 @@ ALTER TABLE transacaodetalhe
   ADD CONSTRAINT transacaodetalhe_001_fk FOREIGN KEY (idtransacao)
   REFERENCES transacao (id)
   ON UPDATE CASCADE
-  ON DELETE RESTRICT;
+  ON DELETE CASCADE;

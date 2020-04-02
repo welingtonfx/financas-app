@@ -1,5 +1,6 @@
 ﻿using Financas.Dominio.Model;
 using Financas.Infra.Interface.Repositorio;
+using Financas.Infra.Repositorio.EF;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,16 +8,18 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Financas.Infra.Repositorio.Repositorio
+namespace Financas.Infra.EF.Repositorio.Repositorio
 {
     public class RepositorioBase<T> : IRepositorio<T>
         where T: BaseEntidade, new()
     {
         private readonly IUnitOfWork unitOfWork;
+        protected readonly DbContext Contexto;
 
         public RepositorioBase(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
+            this.Contexto = unitOfWork.Contexto;
         }
 
         public async Task<IEnumerable<T>> Obter()
@@ -66,7 +69,7 @@ namespace Financas.Infra.Repositorio.Repositorio
         public async Task<T> Alterar(T entidade)
         {
             unitOfWork.Contexto.Entry(entidade).State = EntityState.Modified;
-            unitOfWork.Contexto.Set<T>().Attach(entidade);
+            unitOfWork.Contexto.Set<T>().Update(entidade);
             return entidade;
         }
 

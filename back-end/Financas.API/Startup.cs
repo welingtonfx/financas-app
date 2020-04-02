@@ -1,10 +1,10 @@
 using AutoMapper;
 using Financas.Dominio.Handler.PipelineBehaviors;
 using Financas.Infra.Comum;
+using Financas.Infra.EF.Repositorio.Repositorio;
 using Financas.Infra.Interface.Comum;
 using Financas.Infra.Interface.Repositorio;
-using Financas.Infra.Repositorio;
-using Financas.Infra.Repositorio.Repositorio;
+using Financas.Infra.Repositorio.EF;
 using Financas.Interface.Repositorio;
 using FluentValidation;
 using MediatR;
@@ -32,7 +32,7 @@ namespace Financas.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddMvc().AddNewtonsoftJson();
+            services.AddMvc().AddNewtonsoftJson(f => f.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             ConfigureServicesCors(services);
             ConfigureServicesSwagger(services);

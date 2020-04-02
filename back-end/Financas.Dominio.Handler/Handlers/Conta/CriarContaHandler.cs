@@ -27,7 +27,6 @@ namespace Financas.Dominio.Handler.Handlers.Conta
             using (var uow = unitOfWork)
             {
                 var conta = mapper.Map<Model.Conta>(request);
-                conta.DataCriacao = conta.DataAlteracao = DateTime.Now;
 
                 var resultado = await contaRepositorio.Inserir(conta);
                 uow.PersistirTransacao();

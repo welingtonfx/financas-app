@@ -32,11 +32,5 @@ namespace Financas.Dominio.Handler.Handlers.Categoria
                 return resultado;
             }
         }
-
-        private void MapearDadosCategoria(Model.Categoria categoria, AlterarCategoriaCommand request)
-        {
-            categoria.Descricao = request.Descricao;
-            categoria.IdCategoriaPai = request.IdCategoriaPai;
-        }
     }
 }

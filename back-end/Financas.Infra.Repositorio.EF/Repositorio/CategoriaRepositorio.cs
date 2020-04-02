@@ -2,7 +2,7 @@
 using Financas.Infra.Interface.Repositorio;
 using Financas.Interface.Repositorio;
 
-namespace Financas.Infra.Repositorio.Repositorio
+namespace Financas.Infra.EF.Repositorio.Repositorio
 {
     public class CategoriaRepositorio : RepositorioBase<Categoria>, ICategoriaRepositorio
     {
