@@ -5,6 +5,7 @@ using Financas.Infra.EF.Repositorio.Repositorio;
 using Financas.Infra.Interface.Comum;
 using Financas.Infra.Interface.Repositorio;
 using Financas.Infra.Repositorio.EF;
+using Financas.Infra.Repositorio.EF.Repositorio;
 using Financas.Interface.Repositorio;
 using FluentValidation;
 using MediatR;
@@ -43,6 +44,7 @@ namespace Financas.API
             services.AddTransient<ICategoriaRepositorio, CategoriaRepositorio>();
             services.AddTransient<ITransacaoRepositorio, TransacaoRepositorio>();
             services.AddTransient<IContaRepositorio, ContaRepositorio>();
+            services.AddTransient<IMeioPagamentoRepositorio, MeioPagamentoRepositorio>();
             services.AddScoped(typeof(IRepositorio<>), typeof(RepositorioBase<>));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddScoped(typeof(FinancasContext));

@@ -7,7 +7,7 @@ namespace Financas.Dominio.Model
     {
         public string Descricao { get; set; }
         public int IdMeioPagamentoTipo { get; set; }
-        
+
         [ForeignKey("IdMeioPagamentoTipo ")]
         public MeioPagamentoTipo MeioPagamentoTipo { get; set; }
 
@@ -15,7 +15,7 @@ namespace Financas.Dominio.Model
         [ForeignKey("IdContaPadrao")]
         public Conta ContaPadrao { get; set; }
 
-        public int DiaEfetivacaoPagamento { get; set; }
+        public int? DiaEfetivacaoPagamento { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataAlteracao { get; set; }
     }

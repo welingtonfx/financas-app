@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Financas.Dominio.Handler.Commands.Categoria;
-using System;
 
 namespace Financas.Dominio.Handler.Mappers
 {

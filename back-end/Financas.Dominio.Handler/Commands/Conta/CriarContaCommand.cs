@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System;
 
 namespace Financas.Dominio.Handler.Commands.Conta
 {

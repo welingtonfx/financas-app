@@ -6,7 +6,7 @@ namespace Financas.Dominio.Model
     public class TransacaoDetalhe : BaseEntidade
     {
         public int IdTransacao { get; set; }
-        
+
         [ForeignKey("IdTransacao")]
         public Transacao Transacao { get; set; }
 

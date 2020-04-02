@@ -3,7 +3,6 @@ using Financas.Dominio.Handler.Commands.Conta;
 using Financas.Infra.Interface.Repositorio;
 using Financas.Interface.Repositorio;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 

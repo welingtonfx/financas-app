@@ -1,6 +1,5 @@
 ﻿using Financas.Dominio.Model;
 using Financas.Infra.Interface.Repositorio;
-using Financas.Infra.Repositorio.EF;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 namespace Financas.Infra.EF.Repositorio.Repositorio
 {
     public class RepositorioBase<T> : IRepositorio<T>
-        where T: BaseEntidade, new()
+        where T : BaseEntidade, new()
     {
         private readonly IUnitOfWork unitOfWork;
         protected readonly DbContext Contexto;
@@ -54,7 +53,7 @@ namespace Financas.Infra.EF.Repositorio.Repositorio
                 await Inserir(entidade);
         }
 
-        public async Task<T> Inserir (T entidade)
+        public async Task<T> Inserir(T entidade)
         {
             unitOfWork.Contexto.Set<T>().Add(entidade);
             return entidade;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Financas.Dominio.Model
+﻿namespace Financas.Dominio.Model
 {
     public class MeioPagamentoTipo : BaseEntidade
     {

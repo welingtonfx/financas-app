@@ -8,7 +8,7 @@ namespace Financas.Infra.Repositorio.EF
     {
         public FinancasContext()
         {
-            
+
         }
 
         public DbSet<Categoria> Categorias { get; set; }

@@ -6,7 +6,7 @@ namespace Financas.Dominio.Model
     public class MeioPagamentoFechamento : BaseEntidade
     {
         public int IdMeioPagamento { get; set; }
-        
+
         [ForeignKey("IdMeioPagamento")]
         public MeioPagamento MeioPagamento { get; set; }
 
